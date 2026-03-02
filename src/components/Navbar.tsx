@@ -8,6 +8,7 @@ import { useTheme } from "./ThemeProvider";
 const navLinks = [
     { name: "Inicio", href: "#hero" },
     { name: "Sobre Mí", href: "#about" },
+    { name: "Experiencia", href: "#experience" },
     { name: "Tecnologías", href: "#tech" },
     { name: "Proyectos", href: "#projects" },
     { name: "Contacto", href: "#contact" },
