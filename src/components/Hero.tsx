@@ -5,7 +5,6 @@ import { TypeAnimation } from "react-type-animation";
 import { HiArrowRight, HiDownload } from "react-icons/hi";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { useTheme } from "./ThemeProvider";
-import FloatingParticles from "./FloatingParticles";
 
 export default function Hero() {
     const { theme } = useTheme();
@@ -223,8 +222,8 @@ export default function Hero() {
                                 animate={{ y: [0, -4, 0] }}
                                 transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 1 }}
                                 className={`absolute top-1/2 -left-4 sm:-left-7 -translate-y-1/2 border text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg z-10 ${isLight
-                                        ? "bg-white border-[rgba(108,99,255,0.3)] text-slate-700"
-                                        : "bg-[rgba(17,24,39,0.9)] border-[rgba(108,99,255,0.3)] text-gray-200"
+                                    ? "bg-white border-[rgba(108,99,255,0.3)] text-slate-700"
+                                    : "bg-[rgba(17,24,39,0.9)] border-[rgba(108,99,255,0.3)] text-gray-200"
                                     }`}
                             >
                                 TypeScript
