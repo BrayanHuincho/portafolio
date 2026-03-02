@@ -56,12 +56,12 @@ export default function Navbar() {
             >
                 <div
                     className={`flex items-center justify-between px-6 py-3 rounded-2xl border transition-all duration-400 ${scrolled
-                            ? isLight
-                                ? "bg-[rgba(248,250,255,0.9)] backdrop-blur-xl border-[rgba(108,99,255,0.2)] shadow-[0_8px_32px_rgba(108,99,255,0.08)]"
-                                : "bg-[rgba(3,7,18,0.88)] backdrop-blur-xl border-[rgba(108,99,255,0.18)] shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-                            : isLight
-                                ? "bg-[rgba(248,250,255,0.6)] backdrop-blur-md border-[rgba(108,99,255,0.1)]"
-                                : "bg-[rgba(3,7,18,0.5)] backdrop-blur-md border-[rgba(108,99,255,0.08)]"
+                        ? isLight
+                            ? "bg-[rgba(248,250,255,0.9)] backdrop-blur-xl border-[rgba(108,99,255,0.2)] shadow-[0_8px_32px_rgba(108,99,255,0.08)]"
+                            : "bg-[rgba(3,7,18,0.88)] backdrop-blur-xl border-[rgba(108,99,255,0.18)] shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
+                        : isLight
+                            ? "bg-[rgba(248,250,255,0.6)] backdrop-blur-md border-[rgba(108,99,255,0.1)]"
+                            : "bg-[rgba(3,7,18,0.5)] backdrop-blur-md border-[rgba(108,99,255,0.08)]"
                         }`}
                 >
                     {/* Logo */}
@@ -84,18 +84,18 @@ export default function Navbar() {
                                     key={link.name}
                                     href={link.href}
                                     className={`relative px-4 py-2 text-sm font-medium rounded-xl transition-colors duration-200 ${isActive
-                                            ? isLight ? "text-slate-900" : "text-white"
-                                            : isLight
-                                                ? "text-slate-500 hover:text-slate-900"
-                                                : "text-gray-400 hover:text-white"
+                                        ? isLight ? "text-slate-900" : "text-white"
+                                        : isLight
+                                            ? "text-slate-500 hover:text-slate-900"
+                                            : "text-gray-400 hover:text-white"
                                         }`}
                                 >
                                     {isActive && (
                                         <motion.div
                                             layoutId="activeNav"
                                             className={`absolute inset-0 rounded-xl ${isLight
-                                                    ? "bg-[rgba(108,99,255,0.12)] border border-[rgba(108,99,255,0.25)]"
-                                                    : "bg-[rgba(108,99,255,0.15)] border border-[rgba(108,99,255,0.2)]"
+                                                ? "bg-[rgba(108,99,255,0.12)] border border-[rgba(108,99,255,0.25)]"
+                                                : "bg-[rgba(108,99,255,0.15)] border border-[rgba(108,99,255,0.2)]"
                                                 }`}
                                             transition={{ type: "spring", stiffness: 400, damping: 32 }}
                                         />
@@ -108,28 +108,13 @@ export default function Navbar() {
 
                     {/* Right side: theme toggle + CTA */}
                     <div className="flex items-center gap-2">
-                        {/* Theme toggle */}
+                        {/* Theme toggle temporarily hidden */}
                         <motion.button
                             onClick={toggle}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.92 }}
                             aria-label="Cambiar tema"
-                            className={`p-2.5 rounded-xl border transition-all duration-300 ${isLight
-                                    ? "bg-[rgba(108,99,255,0.08)] border-[rgba(108,99,255,0.2)] text-[#6C63FF] hover:bg-[rgba(108,99,255,0.15)]"
-                                    : "bg-[rgba(255,255,255,0.04)] border-[rgba(255,255,255,0.08)] text-gray-400 hover:text-white hover:border-[rgba(108,99,255,0.3)]"
-                                }`}
+                            className="hidden"
                         >
-                            <AnimatePresence mode="wait" initial={false}>
-                                <motion.div
-                                    key={theme}
-                                    initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
-                                    animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                                    exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
-                                    transition={{ duration: 0.25 }}
-                                >
-                                    {isLight ? <HiMoon size={18} /> : <HiSun size={18} />}
-                                </motion.div>
-                            </AnimatePresence>
+                            <HiSun size={18} />
                         </motion.button>
 
                         {/* CTA */}
@@ -144,8 +129,8 @@ export default function Navbar() {
                         <button
                             onClick={() => setMobileOpen(!mobileOpen)}
                             className={`md:hidden p-2 rounded-lg transition-colors ${isLight
-                                    ? "text-slate-700 hover:bg-[rgba(108,99,255,0.08)]"
-                                    : "text-white hover:bg-[rgba(108,99,255,0.1)]"
+                                ? "text-slate-700 hover:bg-[rgba(108,99,255,0.08)]"
+                                : "text-white hover:bg-[rgba(108,99,255,0.1)]"
                                 }`}
                         >
                             {mobileOpen ? <HiX size={22} /> : <HiMenuAlt3 size={22} />}
@@ -162,8 +147,8 @@ export default function Navbar() {
                             exit={{ opacity: 0, y: -10, scale: 0.95 }}
                             transition={{ duration: 0.18 }}
                             className={`mt-2 p-4 rounded-2xl border shadow-xl ${isLight
-                                    ? "bg-[rgba(248,250,255,0.95)] backdrop-blur-xl border-[rgba(108,99,255,0.15)]"
-                                    : "bg-[rgba(3,7,18,0.95)] backdrop-blur-xl border-[rgba(108,99,255,0.18)]"
+                                ? "bg-[rgba(248,250,255,0.95)] backdrop-blur-xl border-[rgba(108,99,255,0.15)]"
+                                : "bg-[rgba(3,7,18,0.95)] backdrop-blur-xl border-[rgba(108,99,255,0.18)]"
                                 }`}
                         >
                             <div className="flex flex-col gap-1">
@@ -176,12 +161,12 @@ export default function Navbar() {
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: i * 0.04 }}
                                         className={`px-4 py-3 rounded-xl text-sm font-medium transition-colors ${active === link.href.replace("#", "")
-                                                ? isLight
-                                                    ? "text-slate-900 bg-[rgba(108,99,255,0.1)]"
-                                                    : "text-white bg-[rgba(108,99,255,0.15)]"
-                                                : isLight
-                                                    ? "text-slate-500 hover:text-slate-900 hover:bg-[rgba(108,99,255,0.07)]"
-                                                    : "text-gray-400 hover:text-white hover:bg-[rgba(108,99,255,0.08)]"
+                                            ? isLight
+                                                ? "text-slate-900 bg-[rgba(108,99,255,0.1)]"
+                                                : "text-white bg-[rgba(108,99,255,0.15)]"
+                                            : isLight
+                                                ? "text-slate-500 hover:text-slate-900 hover:bg-[rgba(108,99,255,0.07)]"
+                                                : "text-gray-400 hover:text-white hover:bg-[rgba(108,99,255,0.08)]"
                                             }`}
                                     >
                                         {link.name}

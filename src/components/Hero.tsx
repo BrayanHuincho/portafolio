@@ -14,19 +14,17 @@ export default function Hero() {
     return (
         <section
             id="hero"
-            className="relative min-h-screen flex items-center overflow-hidden"
+            className="relative min-h-screen flex items-center overflow-hidden pt-20"
         >
-            <FloatingParticles />
+            {/* Gradient orbs (Optimized blur to avoid lag) */}
+            <div className="absolute top-1/3 left-10 w-[300px] h-[300px] bg-[#6C63FF] rounded-full opacity-[0.05] blur-3xl animate-[float_10s_ease-in-out_infinite]" />
+            <div className="absolute bottom-1/4 right-10 w-[250px] h-[250px] bg-[#00D4AA] rounded-full opacity-[0.04] blur-3xl animate-[float-delayed_12s_ease-in-out_infinite]" />
 
-            {/* Gradient orbs */}
-            <div className="absolute top-1/3 left-10 w-[400px] h-[400px] bg-[#6C63FF] rounded-full opacity-[0.06] blur-[100px] animate-[float_8s_ease-in-out_infinite]" />
-            <div className="absolute bottom-1/4 right-10 w-[350px] h-[350px] bg-[#00D4AA] rounded-full opacity-[0.05] blur-[100px] animate-[float-delayed_10s_ease-in-out_infinite]" />
-
-            <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-28 pb-16">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pt-16 lg:pt-28 pb-16">
+                <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
 
                     {/* ── LEFT: Text content ── */}
-                    <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-5 order-2 lg:order-1">
 
                         {/* Greeting */}
                         <motion.p
@@ -115,8 +113,8 @@ export default function Hero() {
                                 href="/cv-jhon-huincho.docx"
                                 download
                                 className={`magnetic-btn group flex items-center gap-2 px-7 py-3.5 rounded-2xl text-sm font-semibold border transition-all duration-300 ${isLight
-                                        ? "bg-white/70 backdrop-blur border-[rgba(108,99,255,0.3)] text-slate-700 hover:border-[rgba(108,99,255,0.6)] hover:shadow-lg"
-                                        : "bg-transparent border-[rgba(108,99,255,0.3)] text-white hover:border-[rgba(108,99,255,0.6)]"
+                                    ? "bg-white/70 backdrop-blur border-[rgba(108,99,255,0.3)] text-slate-700 hover:border-[rgba(108,99,255,0.6)] hover:shadow-lg"
+                                    : "bg-transparent border-[rgba(108,99,255,0.3)] text-white hover:border-[rgba(108,99,255,0.6)]"
                                     }`}
                             >
                                 <HiDownload className="group-hover:animate-bounce" />
@@ -155,8 +153,8 @@ export default function Hero() {
                                     whileTap={{ scale: 0.95 }}
                                     transition={{ duration: 0.15 }}
                                     className={`relative w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-300 group ${isLight
-                                            ? "bg-white/70 backdrop-blur border-[rgba(108,99,255,0.2)] text-slate-600 hover:border-[rgba(108,99,255,0.5)] hover:text-[#6C63FF] hover:shadow-[0_4px_16px_rgba(108,99,255,0.2)]"
-                                            : "bg-[rgba(255,255,255,0.05)] border-[rgba(108,99,255,0.15)] text-gray-400 hover:text-white hover:border-[rgba(108,99,255,0.4)] hover:bg-[rgba(108,99,255,0.1)] hover:shadow-[0_4px_16px_rgba(108,99,255,0.2)]"
+                                        ? "bg-white/70 backdrop-blur border-[rgba(108,99,255,0.2)] text-slate-600 hover:border-[rgba(108,99,255,0.5)] hover:text-[#6C63FF] hover:shadow-[0_4px_16px_rgba(108,99,255,0.2)]"
+                                        : "bg-[rgba(255,255,255,0.05)] border-[rgba(108,99,255,0.15)] text-gray-400 hover:text-white hover:border-[rgba(108,99,255,0.4)] hover:bg-[rgba(108,99,255,0.1)] hover:shadow-[0_4px_16px_rgba(108,99,255,0.2)]"
                                         }`}
                                 >
                                     <s.icon size={20} />
@@ -172,72 +170,65 @@ export default function Hero() {
 
                     {/* ── RIGHT: Avatar Card ── */}
                     <motion.div
-                        initial={{ opacity: 0, x: 40 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.7, delay: 0.35 }}
-                        className="hidden lg:flex justify-end items-center"
+                        className="flex justify-center items-center order-1 lg:order-2 w-full max-w-[280px] sm:max-w-xs lg:max-w-none mx-auto"
                     >
-                        <div className="relative">
-                            <div className="absolute -inset-6 rounded-full bg-gradient-to-br from-[#6C63FF] to-[#00D4AA] opacity-[0.12] blur-3xl" />
+                        <div className="relative w-full aspect-square lg:w-80 lg:h-80">
+                            {/* Inner glow optimized */}
+                            <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-[#6C63FF] to-[#00D4AA] opacity-[0.08] blur-2xl pointer-events-none" />
 
-                            <div className="relative w-80 h-80">
-                                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#6C63FF] via-[#8B83FF] to-[#00D4AA] p-[2px]">
-                                    <div className={`w-full h-full rounded-3xl flex flex-col items-center justify-center gap-4 relative overflow-hidden ${isLight ? "bg-white/80 backdrop-blur-sm" : "bg-[#0d1117]"
-                                        }`}>
-                                        {/* dot pattern */}
-                                        <div
-                                            className="absolute inset-0 opacity-[0.05]"
-                                            style={{
-                                                backgroundImage: "radial-gradient(circle, #6C63FF 1px, transparent 1px)",
-                                                backgroundSize: "22px 22px",
-                                            }}
-                                        />
-                                        {/* Initials */}
-                                        <motion.div
-                                            animate={{ scale: [1, 1.04, 1] }}
-                                            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                                            className="relative z-10 w-24 h-24 rounded-2xl bg-gradient-to-br from-[#6C63FF] to-[#00D4AA] flex items-center justify-center shadow-[0_0_32px_rgba(108,99,255,0.45)]"
-                                        >
-                                            <span className="text-white text-4xl font-black">JH</span>
-                                        </motion.div>
-                                        <div className="relative z-10 text-center">
-                                            <p className={`font-bold text-lg leading-tight ${isLight ? "text-slate-800" : "text-white"}`}>Jhon Brayan</p>
-                                            <p className={`font-bold text-lg leading-tight ${isLight ? "text-slate-800" : "text-white"}`}>Huincho Quispe</p>
-                                            <p className="text-[#00D4AA] text-sm mt-1 font-semibold">Full Stack Developer</p>
-                                        </div>
-                                        <div className="relative z-10 flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(0,212,170,0.1)] border border-[rgba(0,212,170,0.35)]">
+                            <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-[#6C63FF] via-[#8B83FF] to-[#00D4AA] p-[2px]">
+                                <div className={`w-full h-full rounded-[2rem] flex flex-col items-center justify-center relative overflow-hidden ${isLight ? "bg-white/90 backdrop-blur-sm" : "bg-[#0d1117] shadow-xl"
+                                    }`}>
+                                    {/* Formal Photo */}
+                                    <img
+                                        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=500"
+                                        alt="Jhon Brayan Huincho Quispe"
+                                        className="absolute inset-0 w-full h-full object-cover object-top opacity-90 transition-transform duration-500 hover:scale-105"
+                                        loading="lazy"
+                                    />
+
+                                    {/* Gradient overlay to make text pop if needed (kept very light visually) */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d1117] via-transparent to-transparent opacity-60" />
+
+                                    <div className="absolute bottom-4 left-0 right-0 z-10 text-center px-4">
+                                        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[rgba(0,212,170,0.15)] border border-[rgba(0,212,170,0.4)] backdrop-blur-md">
                                             <span className="w-1.5 h-1.5 rounded-full bg-[#00D4AA] animate-pulse" />
-                                            <span className="text-[#00D4AA] text-xs font-semibold">Open to work</span>
+                                            <span className="text-white drop-shadow-md shadow-black text-xs font-semibold">Open to work</span>
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* Floating tech badges */}
-                                <motion.div
-                                    animate={{ y: [0, -9, 0] }}
-                                    transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                                    className="absolute -top-4 -right-5 bg-gradient-to-br from-[#6C63FF] to-[#4F46E5] text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg"
-                                >
-                                    Next.js 15
-                                </motion.div>
-                                <motion.div
-                                    animate={{ y: [0, 9, 0] }}
-                                    transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 0.5 }}
-                                    className="absolute -bottom-4 -left-5 bg-gradient-to-br from-[#00D4AA] to-[#059669] text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg"
-                                >
-                                    Laravel & PHP
-                                </motion.div>
-                                <motion.div
-                                    animate={{ y: [0, -6, 0] }}
-                                    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 1 }}
-                                    className={`absolute top-1/2 -left-7 -translate-y-1/2 border text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg ${isLight
-                                            ? "bg-white border-[rgba(108,99,255,0.3)] text-slate-700"
-                                            : "bg-[rgba(17,24,39,0.9)] border-[rgba(108,99,255,0.3)] text-gray-200"
-                                        }`}
-                                >
-                                    TypeScript
-                                </motion.div>
                             </div>
+
+                            {/* Floating tech badges - optimized for less lag */}
+                            <motion.div
+                                animate={{ y: [0, -6, 0] }}
+                                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                                className="absolute -top-3 -right-3 sm:-right-5 bg-gradient-to-br from-[#6C63FF] to-[#4F46E5] text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-[0_4px_12px_rgba(108,99,255,0.3)] z-10"
+                            >
+                                Next.js 15
+                            </motion.div>
+
+                            <motion.div
+                                animate={{ y: [0, 6, 0] }}
+                                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 0.5 }}
+                                className="absolute -bottom-3 -left-3 sm:-left-5 bg-gradient-to-br from-[#00D4AA] to-[#059669] text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-[0_4px_12px_rgba(0,212,170,0.3)] z-10"
+                            >
+                                Laravel & PHP
+                            </motion.div>
+
+                            <motion.div
+                                animate={{ y: [0, -4, 0] }}
+                                transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 1 }}
+                                className={`absolute top-1/2 -left-4 sm:-left-7 -translate-y-1/2 border text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg z-10 ${isLight
+                                        ? "bg-white border-[rgba(108,99,255,0.3)] text-slate-700"
+                                        : "bg-[rgba(17,24,39,0.9)] border-[rgba(108,99,255,0.3)] text-gray-200"
+                                    }`}
+                            >
+                                TypeScript
+                            </motion.div>
                         </div>
                     </motion.div>
 
