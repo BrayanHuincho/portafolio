@@ -114,23 +114,24 @@ export default function TechStack() {
                                 {category.techs.map((tech, i) => (
                                     <motion.div
                                         key={tech.name}
-                                        initial={{ opacity: 0, x: -8 }}
-                                        animate={inView ? { opacity: 1, x: 0 } : {}}
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={inView ? { opacity: 1, scale: 1 } : {}}
                                         transition={{ delay: 0.3 + catI * 0.08 + i * 0.04 }}
-                                        whileHover={{ x: 4 }}
-                                        className={`flex items-center gap-2.5 py-1.5 px-2.5 rounded-lg transition-colors cursor-default group ${isLight
-                                                ? "hover:bg-[rgba(108,99,255,0.07)]"
-                                                : "hover:bg-[rgba(108,99,255,0.08)]"
+                                        whileHover={{ scale: 1.03 }}
+                                        className={`flex items-center gap-3 py-2.5 px-3 rounded-xl transition-all cursor-default border group ${isLight
+                                            ? "hover:bg-white hover:shadow-md border-transparent hover:border-slate-200"
+                                            : "hover:bg-[rgba(30,41,59,0.5)] hover:shadow-lg border-transparent hover:border-[rgba(255,255,255,0.1)]"
                                             }`}
                                     >
-                                        <tech.icon
-                                            size={16}
-                                            style={{ color: tech.color }}
-                                            className="flex-shrink-0"
-                                        />
-                                        <span className={`text-sm font-medium transition-colors ${isLight
-                                                ? "text-slate-600 group-hover:text-slate-900"
-                                                : "text-gray-400 group-hover:text-gray-200"
+                                        <div className={`p-2 rounded-lg flex-shrink-0 transition-all duration-300 ${isLight ? "bg-slate-50 group-hover:bg-slate-100" : "bg-[rgba(255,255,255,0.03)] group-hover:bg-[rgba(255,255,255,0.08)]"}`}>
+                                            <tech.icon
+                                                size={20}
+                                                style={{ color: tech.color }}
+                                            />
+                                        </div>
+                                        <span className={`text-[15px] font-semibold transition-colors ${isLight
+                                            ? "text-slate-600 group-hover:text-slate-900"
+                                            : "text-gray-400 group-hover:text-gray-100"
                                             }`}>
                                             {tech.name}
                                         </span>

@@ -300,35 +300,33 @@ export default function Projects() {
                                         })}
                                     </div>
 
-                                    {/* Stats & Links */}
-                                    <div className="flex items-center justify-between">
-                                        <div className={`flex items-center gap-3 text-xs ${isLight ? "text-slate-400" : "text-gray-600"}`}>
-                                            <span>⭐ {project.stats.stars}</span>
-                                            <span>👁 {project.stats.views}</span>
-                                        </div>
+                                    {/* Links */}
+                                    <div className="flex items-center justify-end">
                                         <div className="flex items-center gap-2">
                                             <a
                                                 href={project.demo}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className={`p-2 rounded-lg border flex items-center gap-1 font-semibold transition-all duration-200 ${isLight
-                                                        ? "bg-gradient-to-r from-[#6C63FF] to-[#4F46E5] text-white border-transparent hover:shadow-[0_4px_16px_rgba(108,99,255,0.4)] hover:scale-105"
-                                                        : "bg-gradient-to-r from-[#00D4AA] to-[#059669] text-[#0d1117] border-transparent hover:shadow-[0_4px_16px_rgba(0,212,170,0.4)] hover:scale-105"
+                                                    ? "bg-gradient-to-r from-[#6C63FF] to-[#4F46E5] text-white border-transparent hover:shadow-[0_4px_16px_rgba(108,99,255,0.4)] hover:scale-105"
+                                                    : "bg-gradient-to-r from-[#00D4AA] to-[#059669] text-[#0d1117] border-transparent hover:shadow-[0_4px_16px_rgba(0,212,170,0.4)] hover:scale-105"
                                                     }`}
                                             >
                                                 <HiExternalLink size={16} /> <span className="text-xs">Demo</span>
                                             </a>
-                                            <a
-                                                href={project.repo}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className={`p-2 rounded-lg border flex items-center gap-1 transition-all duration-200 ${isLight
+                                            {project.repo && (
+                                                <a
+                                                    href={project.repo}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className={`p-2 rounded-lg border flex items-center gap-1 transition-all duration-200 ${isLight
                                                         ? "bg-white/60 border-slate-200 text-slate-500 hover:text-[#6C63FF] hover:border-[rgba(108,99,255,0.4)]"
                                                         : "bg-[rgba(255,255,255,0.03)] border-[rgba(255,255,255,0.05)] text-gray-400 hover:text-white hover:border-[rgba(108,99,255,0.3)]"
-                                                    }`}
-                                            >
-                                                <FaGithub size={15} /> <span className="text-xs">Código</span>
-                                            </a>
+                                                        }`}
+                                                >
+                                                    <FaGithub size={15} /> <span className="text-xs">Código</span>
+                                                </a>
+                                            )}
                                         </div>
                                     </div>
                                     {/* Button to open project details modal */}
@@ -449,23 +447,25 @@ export default function Projects() {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-transform hover:scale-105 ${isLight
-                                                    ? "bg-gradient-to-r from-[#6C63FF] to-[#4F46E5] text-white"
-                                                    : "bg-gradient-to-r from-[#00D4AA] to-[#059669] text-[#0d1117]"
+                                                ? "bg-gradient-to-r from-[#6C63FF] to-[#4F46E5] text-white"
+                                                : "bg-gradient-to-r from-[#00D4AA] to-[#059669] text-[#0d1117]"
                                                 }`}
                                         >
                                             <HiExternalLink size={20} /> Ver App en Vivo (Demo)
                                         </a>
-                                        <a
-                                            href={selectedProject.repo}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold border transition-colors ${isLight
+                                        {selectedProject.repo && (
+                                            <a
+                                                href={selectedProject.repo}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold border transition-colors ${isLight
                                                     ? "border-slate-300 text-slate-700 hover:bg-slate-100"
                                                     : "border-[rgba(255,255,255,0.1)] text-white hover:bg-[rgba(255,255,255,0.1)]"
-                                                }`}
-                                        >
-                                            <FaGithub size={20} /> Ver Código Fuente
-                                        </a>
+                                                    }`}
+                                            >
+                                                <FaGithub size={20} /> Ver Código Fuente
+                                            </a>
+                                        )}
                                     </div>
                                 </div>
                             </div>

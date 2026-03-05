@@ -64,8 +64,24 @@ export default function Contact() {
         setErrors(errs);
         if (Object.keys(errs).length > 0) return;
         setStatus("sending");
-        await new Promise((r) => setTimeout(r, 1500));
-        setStatus("sent");
+
+        try {
+            const res = await fetch("/api/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+
+            if (!res.ok) {
+                throw new Error("Error enviando el formulario");
+            }
+
+            setStatus("sent");
+        } catch (error) {
+            console.error(error);
+            setStatus("idle");
+            alert("Hubo un error al enviar el mensaje. Inténtalo nuevamente por favor.");
+        }
     };
 
     const inputBase = (field: keyof Fields) => {

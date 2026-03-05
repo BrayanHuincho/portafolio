@@ -94,6 +94,21 @@ export default function Hero() {
                             . Código limpio, diseño moderno y resultados que hablan por sí solos.
                         </motion.p>
 
+                        {/* Quick Metrics */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.62 }}
+                            className="flex flex-wrap gap-4 mt-1 mb-2"
+                        >
+                            <div className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold border shadow-sm ${isLight ? "bg-white border-slate-200 text-slate-800" : "bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.1)] text-gray-200 backdrop-blur-sm"}`}>
+                                <span className="text-[#6C63FF] text-base">+2 Años</span> <span className="opacity-80 font-semibold tracking-wide">Experiencia</span>
+                            </div>
+                            <div className={`px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-bold border shadow-sm ${isLight ? "bg-white border-slate-200 text-slate-800" : "bg-[rgba(255,255,255,0.02)] border-[rgba(255,255,255,0.1)] text-gray-200 backdrop-blur-sm"}`}>
+                                <span className="text-[#00D4AA] text-base">15+</span> <span className="opacity-80 font-semibold tracking-wide">Proyectos Exitosos</span>
+                            </div>
+                        </motion.div>
+
                         {/* CTA Buttons */}
                         <motion.div
                             initial={{ opacity: 0, y: 16 }}
@@ -181,11 +196,11 @@ export default function Hero() {
                             <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-[#6C63FF] via-[#8B83FF] to-[#00D4AA] p-[2px]">
                                 <div className={`w-full h-full rounded-[2rem] flex flex-col items-center justify-center relative overflow-hidden ${isLight ? "bg-white/90 backdrop-blur-sm" : "bg-[#0d1117] shadow-xl"
                                     }`}>
-                                    {/* Formal Photo */}
+                                    {/* Epic Photo */}
                                     <img
-                                        src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=500"
-                                        alt="Jhon Brayan Huincho Quispe"
-                                        className="absolute inset-0 w-full h-full object-cover object-top opacity-90 transition-transform duration-500 hover:scale-105"
+                                        src="/goku-black.png"
+                                        alt="Jhon Brayan Huincho Quispe - Goku Black"
+                                        className="absolute inset-0 w-full h-full object-cover object-center opacity-95 transition-transform duration-700 hover:scale-[1.03]"
                                         loading="lazy"
                                     />
 
@@ -201,38 +216,34 @@ export default function Hero() {
                                 </div>
                             </div>
 
-                            {/* Floating tech badges - optimized for less lag */}
-                            <motion.div
-                                animate={{ y: [0, -6, 0] }}
-                                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                                className="absolute -top-3 -right-3 sm:-right-5 bg-gradient-to-br from-[#6C63FF] to-[#4F46E5] text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-[0_4px_12px_rgba(108,99,255,0.3)] z-10"
-                            >
-                                Next.js 15
-                            </motion.div>
-
-                            <motion.div
-                                animate={{ y: [0, 6, 0] }}
-                                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 0.5 }}
-                                className="absolute -bottom-3 -left-3 sm:-left-5 bg-gradient-to-br from-[#00D4AA] to-[#059669] text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-[0_4px_12px_rgba(0,212,170,0.3)] z-10"
-                            >
-                                Laravel & PHP
-                            </motion.div>
-
-                            <motion.div
-                                animate={{ y: [0, -4, 0] }}
-                                transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 1 }}
-                                className={`absolute top-1/2 -left-4 sm:-left-7 -translate-y-1/2 border text-xs font-bold px-3 py-1.5 rounded-xl shadow-lg z-10 ${isLight
-                                    ? "bg-white border-[rgba(108,99,255,0.3)] text-slate-700"
-                                    : "bg-[rgba(17,24,39,0.9)] border-[rgba(108,99,255,0.3)] text-gray-200"
-                                    }`}
-                            >
-                                TypeScript
-                            </motion.div>
                         </div>
                     </motion.div>
 
                 </div>
             </div>
+
+            {/* Scroll indicator */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.5, duration: 1 }}
+                className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+            >
+                <motion.div
+                    animate={{ y: [0, 8, 0] }}
+                    transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                    className={`w-6 h-10 rounded-full border-2 flex justify-center pt-2 ${isLight ? "border-slate-300" : "border-[rgba(255,255,255,0.3)]"}`}
+                >
+                    <motion.div
+                        animate={{ y: [0, 8, 0], opacity: [1, 0.5, 1] }}
+                        transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                        className={`w-1 h-2 rounded-full ${isLight ? "bg-[#6C63FF]" : "bg-[#00D4AA]"}`}
+                    />
+                </motion.div>
+                <span className={`text-[10px] uppercase font-bold tracking-widest ${isLight ? "text-slate-400" : "text-gray-500"}`}>
+                    Deslizar
+                </span>
+            </motion.div>
         </section>
     );
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HiMenuAlt3, HiX, HiSun, HiMoon } from "react-icons/hi";
+import { HiMenuAlt3, HiX } from "react-icons/hi";
 import { useTheme } from "./ThemeProvider";
 
 const navLinks = [
@@ -18,17 +18,16 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [active, setActive] = useState("hero");
-    const { theme, toggle } = useTheme();
+    const { theme } = useTheme();
 
     const detectSection = useCallback(() => {
         const sections = [...navLinks].map((l) => l.href.replace("#", ""));
-        // Iterate in reverse to find the last section that has scrolled past 150px
         let found = "hero";
         for (const id of sections) {
             const el = document.getElementById(id);
             if (el) {
                 const top = el.getBoundingClientRect().top;
-                if (top <= 160) found = id;
+                if (top <= 120) found = id;
             }
         }
         setActive(found);
@@ -36,47 +35,89 @@ export default function Navbar() {
 
     useEffect(() => {
         const onScroll = () => {
-            setScrolled(window.scrollY > 40);
+            setScrolled(window.scrollY > 20);
             detectSection();
         };
         window.addEventListener("scroll", onScroll, { passive: true });
-        detectSection(); // run once on mount
+        detectSection();
         return () => window.removeEventListener("scroll", onScroll);
     }, [detectSection]);
 
     const isLight = theme === "light";
 
     return (
-        <>
-            <motion.nav
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-400 ${scrolled ? "w-[90%] max-w-3xl" : "w-[95%] max-w-4xl"
+        <header
+            className={`fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 px-4 transition-all duration-300 ${scrolled ? "pointer-events-auto" : "pointer-events-none"
+                }`}
+        >
+            <nav
+                className={`relative flex items-center justify-center px-2 py-2 rounded-full border transition-all duration-500 pointer-events-auto ${scrolled
+                        ? isLight
+                            ? "bg-white/60 backdrop-blur-xl border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+                            : "bg-[#0b1120]/60 backdrop-blur-xl border-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
+                        : "bg-transparent border-transparent"
                     }`}
             >
-                <div
-                    className={`flex items-center justify-between px-6 py-3 rounded-2xl border transition-all duration-400 ${scrolled
-                        ? isLight
-                            ? "bg-[rgba(248,250,255,0.9)] backdrop-blur-xl border-[rgba(108,99,255,0.2)] shadow-[0_8px_32px_rgba(108,99,255,0.08)]"
-                            : "bg-[rgba(3,7,18,0.88)] backdrop-blur-xl border-[rgba(108,99,255,0.18)] shadow-[0_8px_32px_rgba(0,0,0,0.5)]"
-                        : isLight
-                            ? "bg-[rgba(248,250,255,0.6)] backdrop-blur-md border-[rgba(108,99,255,0.1)]"
-                            : "bg-[rgba(3,7,18,0.5)] backdrop-blur-md border-[rgba(108,99,255,0.08)]"
-                        }`}
-                >
-                    {/* Logo */}
-                    <a href="#hero" className="flex items-center gap-2 group flex-shrink-0">
-                        <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#6C63FF] to-[#00D4AA] flex items-center justify-center group-hover:shadow-[0_0_16px_rgba(108,99,255,0.5)] transition-shadow duration-300">
-                            <span className="text-white font-bold text-sm">&lt;/&gt;</span>
-                        </div>
-                        <span className={`font-semibold text-sm hidden sm:block ${isLight ? "text-slate-800" : "text-white"}`}>
-                            JH.dev
-                        </span>
-                    </a>
+                {/* Desktop Menu */}
+                <div className="hidden md:flex items-center gap-1 sm:gap-2">
+                    {navLinks.map((link) => {
+                        const id = link.href.replace("#", "");
+                        const isActive = active === id;
+                        return (
+                            <a
+                                key={link.name}
+                                href={link.href}
+                                className={`relative px-5 py-2.5 text-[15px] font-medium rounded-full transition-all duration-300 ${isActive
+                                        ? isLight ? "text-slate-900 font-semibold" : "text-white font-semibold"
+                                        : isLight
+                                            ? "text-slate-500 hover:text-slate-900"
+                                            : "text-slate-400 hover:text-white"
+                                    }`}
+                            >
+                                {isActive && (
+                                    <motion.span
+                                        layoutId="navIndicator"
+                                        className={`absolute inset-0 rounded-full -z-10 ${isLight
+                                                ? "bg-white shadow-sm border border-slate-100"
+                                                : "bg-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] border border-white/5"
+                                            }`}
+                                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                                    />
+                                )}
+                                <span className="relative z-10">{link.name}</span>
+                            </a>
+                        );
+                    })}
+                </div>
 
-                    {/* Desktop Links */}
-                    <div className="hidden md:flex items-center gap-1">
+                {/* Mobile Toggle */}
+                <div className="md:hidden flex items-center px-4">
+                    <button
+                        onClick={() => setMobileOpen(!mobileOpen)}
+                        className={`p-2 rounded-full transition-colors ${isLight
+                                ? "text-slate-700 hover:bg-slate-100 bg-white shadow-sm"
+                                : "text-slate-300 hover:bg-[#1f2937]/60 bg-white/5"
+                            }`}
+                    >
+                        {mobileOpen ? <HiX size={20} /> : <HiMenuAlt3 size={20} />}
+                    </button>
+                </div>
+            </nav>
+
+            {/* Mobile Menu Dropdown */}
+            <AnimatePresence>
+                {mobileOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95, y: -20 }}
+                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95, y: -20 }}
+                        transition={{ duration: 0.2 }}
+                        className={`absolute top-full mt-4 p-4 rounded-3xl border shadow-2xl flex flex-col gap-1 pointer-events-auto md:hidden overflow-hidden ${isLight
+                                ? "bg-white/95 backdrop-blur-2xl border-slate-200/50"
+                                : "bg-[#0b1120]/95 backdrop-blur-2xl border-white/10"
+                            }`}
+                        style={{ width: "calc(100% - 2rem)", maxWidth: "400px" }}
+                    >
                         {navLinks.map((link) => {
                             const id = link.href.replace("#", "");
                             const isActive = active === id;
@@ -84,107 +125,23 @@ export default function Navbar() {
                                 <a
                                     key={link.name}
                                     href={link.href}
-                                    className={`relative px-4 py-2 text-sm font-medium rounded-xl transition-colors duration-200 ${isActive
-                                        ? isLight ? "text-slate-900" : "text-white"
-                                        : isLight
-                                            ? "text-slate-500 hover:text-slate-900"
-                                            : "text-gray-400 hover:text-white"
+                                    onClick={() => setMobileOpen(false)}
+                                    className={`px-5 py-4 rounded-2xl text-[15px] font-medium transition-all duration-300 ${isActive
+                                            ? isLight
+                                                ? "text-slate-900 bg-slate-100/80"
+                                                : "text-white bg-white/10"
+                                            : isLight
+                                                ? "text-slate-600 hover:bg-slate-50"
+                                                : "text-slate-400 hover:bg-white/5 hover:text-white"
                                         }`}
                                 >
-                                    {isActive && (
-                                        <motion.div
-                                            layoutId="activeNav"
-                                            className={`absolute inset-0 rounded-xl ${isLight
-                                                ? "bg-[rgba(108,99,255,0.12)] border border-[rgba(108,99,255,0.25)]"
-                                                : "bg-[rgba(108,99,255,0.15)] border border-[rgba(108,99,255,0.2)]"
-                                                }`}
-                                            transition={{ type: "spring", stiffness: 400, damping: 32 }}
-                                        />
-                                    )}
-                                    <span className="relative z-10">{link.name}</span>
+                                    {link.name}
                                 </a>
                             );
                         })}
-                    </div>
-
-                    {/* Right side: theme toggle + CTA */}
-                    <div className="flex items-center gap-2">
-                        {/* Theme toggle temporarily hidden */}
-                        <motion.button
-                            onClick={toggle}
-                            aria-label="Cambiar tema"
-                            className="hidden"
-                        >
-                            <HiSun size={18} />
-                        </motion.button>
-
-                        {/* CTA */}
-                        <a
-                            href="#contact"
-                            className="hidden md:flex items-center gap-2 px-5 py-2 text-sm font-semibold text-white bg-gradient-to-r from-[#6C63FF] to-[#4F46E5] rounded-xl hover:shadow-[0_0_20px_rgba(108,99,255,0.4)] transition-all duration-300 hover:scale-105"
-                        >
-                            Contáctame
-                        </a>
-
-                        {/* Mobile toggle */}
-                        <button
-                            onClick={() => setMobileOpen(!mobileOpen)}
-                            className={`md:hidden p-2 rounded-lg transition-colors ${isLight
-                                ? "text-slate-700 hover:bg-[rgba(108,99,255,0.08)]"
-                                : "text-white hover:bg-[rgba(108,99,255,0.1)]"
-                                }`}
-                        >
-                            {mobileOpen ? <HiX size={22} /> : <HiMenuAlt3 size={22} />}
-                        </button>
-                    </div>
-                </div>
-
-                {/* Mobile Menu */}
-                <AnimatePresence>
-                    {mobileOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                            transition={{ duration: 0.18 }}
-                            className={`mt-2 p-4 rounded-2xl border shadow-xl ${isLight
-                                ? "bg-[rgba(248,250,255,0.95)] backdrop-blur-xl border-[rgba(108,99,255,0.15)]"
-                                : "bg-[rgba(3,7,18,0.95)] backdrop-blur-xl border-[rgba(108,99,255,0.18)]"
-                                }`}
-                        >
-                            <div className="flex flex-col gap-1">
-                                {navLinks.map((link, i) => (
-                                    <motion.a
-                                        key={link.name}
-                                        href={link.href}
-                                        onClick={() => setMobileOpen(false)}
-                                        initial={{ opacity: 0, x: -10 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.04 }}
-                                        className={`px-4 py-3 rounded-xl text-sm font-medium transition-colors ${active === link.href.replace("#", "")
-                                            ? isLight
-                                                ? "text-slate-900 bg-[rgba(108,99,255,0.1)]"
-                                                : "text-white bg-[rgba(108,99,255,0.15)]"
-                                            : isLight
-                                                ? "text-slate-500 hover:text-slate-900 hover:bg-[rgba(108,99,255,0.07)]"
-                                                : "text-gray-400 hover:text-white hover:bg-[rgba(108,99,255,0.08)]"
-                                            }`}
-                                    >
-                                        {link.name}
-                                    </motion.a>
-                                ))}
-                                <a
-                                    href="#contact"
-                                    onClick={() => setMobileOpen(false)}
-                                    className="mt-2 px-4 py-3 text-sm font-medium text-center text-white bg-gradient-to-r from-[#6C63FF] to-[#4F46E5] rounded-xl"
-                                >
-                                    Contáctame
-                                </a>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </motion.nav>
-        </>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </header>
     );
 }
